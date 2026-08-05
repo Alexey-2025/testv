@@ -9,4 +9,4 @@ const to_date=(settings['date_to']) ? new DateInput('.calendar__date_to_containe
 
 const controller = new CaledarController('.calendar__container', from_date, to_date);
 
-controller.onChange = console.logddd
+controller.onChange = console.log
