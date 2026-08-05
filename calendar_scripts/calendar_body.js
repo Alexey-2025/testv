@@ -12,7 +12,7 @@ function getCalendarBody(text) {
         <span class="calendar__upper_dotted_formated_date__day__input__container">
             <input 
             type="text" 
-            class="calendar__upper_dotted_formated_date__day__input"
+            class="calendar__upper_dotted_formated_date__day__input calendar_input___"
             placeholder="ДД"
             maxlength="2"
             pattern="\d{2}"
@@ -22,7 +22,7 @@ function getCalendarBody(text) {
         <span class="calendar__upper_dotted_formated_date__day__input__container">
             <input 
             type="text" 
-            class="calendar__upper_dotted_formated_date__day__input"
+            class="calendar__upper_dotted_formated_date__day__input calendar_input___"
             placeholder="ММ"
             maxlength="2"
             pattern="\d{2}"
@@ -31,7 +31,7 @@ function getCalendarBody(text) {
         </span>
         <input 
         type="text" 
-        class="calendar__upper_dotted_formated_date__year__input"
+        class="calendar__upper_dotted_formated_date__year__input calendar_input___"
         placeholder="ГГГГ"
         maxlength="4"
         pattern="\d{2}"
@@ -128,7 +128,7 @@ function getCalendarBody(text) {
                     <line x1="13.3536" y1="14.1464" x2="20.3536" y2="21.1464" stroke="black"></line>
                 </svg>
             </div>
-            <input type="text" placeholder="">
+            <input type="text" placeholder="" class="calendar_input___">
             <label for="" class="floating_label">Выберите год</label>
             <section class="calendar__year_popup__mobile__clear">
                 <svg width="24" height="25" viewBox="0 0 24 25" fill="none" xmlns="http://www.w3.org/2000/svg">
