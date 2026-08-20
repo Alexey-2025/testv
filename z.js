@@ -22,22 +22,22 @@ class CaledarController{
         this.body = document.querySelector(selector);
         this.to_input = to_input;
         this.from_input = from_input;
-		
-		this.from_date = {
-			'year': this.from_input.input_year,
-			'month': this.from_input.input_month,
-			'day': this.from_input.input_day,
-			'view_year': this.from_input.year,
-			'view_month': this.from_input.month
-		};
-		
-		this.to_date = {
-			'year': this.to_input.input_year,
-			'month': this.to_input.input_month,
-			'day': this.to_input.input_day,
-			'view_year': this.to_input.year,
-			'view_month': this.to_input.month
-		};
+
+        this.from_date = {
+            'year': this.from_input.input_year,
+            'month': this.from_input.input_month,
+            'day': this.from_input.input_day,
+            'view_year': this.from_input.year,
+            'view_month': this.from_input.month
+        }
+
+        this.to_date = {
+            'year': this.to_input.input_year,
+            'month': this.to_input.input_month,
+            'day': this.to_input.input_day,
+            'view_year': this.to_input.year,
+            'view_month': this.to_input.month
+        }
 
         this.to_input.onCalendarRender = () => {
             this.to_date.year = this.to_input.input_year;
@@ -45,8 +45,9 @@ class CaledarController{
             this.to_date.day = this.to_input.input_day;
             this.to_date.view_year = this.to_input.year;
             this.to_date.view_month = this.to_input.month;
-			
-			this.updateCalendars();
+
+
+            this.updateCalendars();
         }
 
         this.from_input.onCalendarRender = () => {
@@ -74,6 +75,9 @@ class CaledarController{
             this.prev_error = this.is_error;
             this.actions_block.dataset.hide = "false";
             this.is_open = true;
+            if(!this.is_mobile && !this.from_input.is_open){
+                this.from_input.date_part.click();
+            }
             this.to_input.setError('false');
             this.from_input.setError('false');
             this.body.dataset.error = 'false';
@@ -100,6 +104,9 @@ class CaledarController{
             this.body.dataset.error = 'false';
             this.actions_block.dataset.hide = "false";
             this.is_open = true;
+            if(!this.is_mobile && !this.to_input.is_open){
+                this.to_input.date_part.click();
+            }
             this.actions[1].disabled = true;
             fill_all(this.from_input.calendar, "none");
             fill_all(this.to_input.calendar, "none");
@@ -164,35 +171,10 @@ class CaledarController{
                 this.from_input.setError('false');
                 this.body.dataset.error = 'false';
             }
-			if(typeof window.main750=='object'){
-			if(document.querySelector('.calendar__error_container').getBoundingClientRect().height<1){
-				if(window.localStorage.getItem('fieldSettings_followers')){
-					var settings=JSON.parse(window.localStorage.getItem('fieldSettings_followers'));
-				} else {
-					var settings={};
-				}
-				if(this.from_date['day'] && this.from_date['month'] && this.from_date['year']){
-					settings['date_from']=this.from_date;
-				}
-				if(this.to_date['day'] && this.to_date['month'] && this.to_date['year']){
-					if(settings['date_from']){
-						if((settings['date_from']['year']+'.'+String(settings['date_from']['month']).padStart(2, '0')+'.'+String(settings['date_from']['month']).padStart(2, '0'))>(this.to_date['year']+'.'+String(this.to_date['month']).padStart(2, '0')+'.'+String(this.to_date['month']).padStart(2, '0'))){
-							settings['date_to']=settings['date_from'];
-						} else {
-							settings['date_to']=this.to_date;
-						}
-					} else {
-						settings['date_to']=this.to_date;
-					}
-				} else if(settings['date_from']){
-					settings['date_to']=settings['date_from'];
-				}
-				window.localStorage.setItem('fieldSettings_followers', JSON.stringify(settings));
-				window.main750.calendarInsert();
-				window.main750.calendarClick();
-				window.main750.followersCreate(1);
-			}
-			}
+
+            if(this.from_date.day !== null && this.to_date.day !== null){
+                document.querySelector('.calendar__close_btn').click();
+            }
         }
 
         document.addEventListener('click', e => {
@@ -236,13 +218,13 @@ class CaledarController{
             }
         })
 
-        this.is_mobile = window.innerWidth <= 640;
+        this.is_mobile = window.innerWidth <= 640 || document.body.classList.contains('mobile_view');
         this.to_input.is_mobile = this.is_mobile;
         this.from_input.is_mobile = this.is_mobile;
 
         window.addEventListener('resize', () => {
             let width = window.innerWidth;
-            if(width <= 640){
+            if(width <= 640 || document.body.classList.contains('mobile_view')){
                 this.is_mobile = true;
                 this.to_input.is_mobile = true;
                 this.from_input.is_mobile = true;
@@ -476,4 +458,4 @@ function fill_all(calendar, fill="none"){
             calendar.children[i].dataset.range=fill;
         }
     }
-                  }
+}
