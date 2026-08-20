@@ -27,7 +27,7 @@ class DateInput{
      * @param {'today' | null} defaultValue
      */
     constructor(selector, text, defaultValue = null){
-		console.log(defaultValue);
+
         this.is_mobile = false;
 
         this.onCalendarRender = function(){};
@@ -156,11 +156,7 @@ class DateInput{
 
         // init config of input
         if(defaultValue !== null){
-			if(typeof defaultValue=='object' && defaultValue['year'] && defaultValue['month'] && defaultValue['day']){
-				this.value = new Date(defaultValue['year'], defaultValue['month'], defaultValue['day']);
-			} else {
-				this.value = new Date();
-			}
+            this.value = new Date();
             this.year = this.value.getFullYear();
             this.month = this.value.getMonth();
             this.day = this.value.getDate();
@@ -301,6 +297,8 @@ class DateInput{
 
         this.date_part.addEventListener('click', (e) => {
             if(!this.is_open){
+
+                console.log('www')
 
                 this.prev_value = {
                     'year': this.year === null ? this.input_year : this.year,
@@ -461,6 +459,7 @@ class DateInput{
     }
 
     resetCalendar(){
+        // console.log(this.is_mobile)
         this.value = null;
         this.year = null;
         this.month = null;
@@ -669,6 +668,7 @@ class DateInput{
     }
 
     onChangeDay(e){
+
         if(e.target.value === '' && this.year_input.value === '' && this.month_input.value === '') {
             this.setResetBtn('false');
         }
